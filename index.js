@@ -20,7 +20,7 @@ accelerometer.addEventListener("reading", (e) => {
   console.log(`Acceleration along the Y-axis ${accelerometer.y}`);
   console.log(`Acceleration along the Z-axis ${accelerometer.z}`);
 
-  if (accelerometer.x < 0.1 && accelerometer.y < 0.1 && accelerometer.z < 0.1) {
+  if (accelerometer.x < 0.2 && accelerometer.y < 0.2 && accelerometer.z < 0.2) {
     document.getElementById("msg").innerText = "Shake your phone around ";
     return;
   }
