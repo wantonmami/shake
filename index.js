@@ -22,6 +22,7 @@ accelerometer.addEventListener("reading", (e) => {
 
   if (accelerometer.x < 0.1 && accelerometer.y < 0.1 && accelerometer.z < 0.1) {
     document.getElementById("msg").innerText = "Shake your phone around ";
+    return;
   }
 
   document.getElementById("msg").innerText = "";
