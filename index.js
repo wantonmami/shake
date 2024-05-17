@@ -8,12 +8,16 @@ var accX, accY, accZ;
 var view = new DataView(new ArrayBuffer(4));
 
 accelerometer.addEventListener("reading", (e) => {
-  if (Math.abs(accelerometer.x) < 0.2 || Math.abs(accelerometer.y) < 0.2 || Math.abs(accelerometer.z) < 0.2) {
-    return;
-  }
   console.log(`Acceleration along the X-axis ${accelerometer.x}`);
   console.log(`Acceleration along the Y-axis ${accelerometer.y}`);
   console.log(`Acceleration along the Z-axis ${accelerometer.z}`);
+
+  if (Math.abs(accelerometer.x) < 0.2 || Math.abs(accelerometer.y) < 0.2 || Math.abs(accelerometer.z) < 0.2) {
+    document.getElementsById("msg").innerText = "Shake your phone around";
+    return;
+  }
+  document.getElementsById("msg").innerText = "";
+
 
   document.getElementById("AccX").innerText = accelerometer.x;
   document.getElementById("AccY").innerText = accelerometer.y;
