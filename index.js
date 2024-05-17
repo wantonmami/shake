@@ -39,13 +39,13 @@ function startAccelerometer() {
 
 
 async function processArray() {
-  document.getElementById("AccY").innerText = "";
+  document.getElementById("nem").innerText = "";
   arr = new Uint8Array(arr);
 
   var hash = await crypto.subtle.digest('SHA-256', arr);
   hash = new Uint8Array(hash);
 
-  arr.push(hash[0] ^ 16);
+  arr.push(hash[0] % 16);
 
   var buffer = "";
   arr.forEach((val) => {
