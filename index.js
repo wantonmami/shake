@@ -26,7 +26,7 @@ accelerometer.addEventListener("reading", (e) => {
   console.log(`Acceleration along the Y-axis ${accelerometer.y}`);
   console.log(`Acceleration along the Z-axis ${accelerometer.z}`);
 
-  document.getElementById("msg").innerText = "";
+  document.getElementById("msg").innerText = std;
 
 
   document.getElementById("AccX").innerText = accelerometer.x;
@@ -46,7 +46,7 @@ accelerometer.addEventListener("reading", (e) => {
   if (arrX.length >= 10) {
     std = getStandardDeviation(arr);
 
-    if (std < 70) {
+    if (std < 1.0) {
       arr = [];
       arrX = [];
       document.getElementById("msg").innerText = "Shake your phone around " + std;
