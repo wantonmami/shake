@@ -40,9 +40,8 @@ function startAccelerometer() {
 
 async function processArray() {
   document.getElementById("nem").innerText = "";
-  arr = new Uint8Array(arr);
 
-  var hash = await crypto.subtle.digest('SHA-256', arr);
+  var hash = await crypto.subtle.digest('SHA-256', new Uint8Array(arr));
   hash = new Uint8Array(hash);
 
   arr.push(hash[0] % 16);
