@@ -56,6 +56,7 @@ accelerometer.addEventListener("reading", (e) => {
 
 
 function startAccelerometer() {
+  document.getElementById("nem").innerHTML = "";
   document.getElementById("btn").style.backgroundColor = "yellow"
   arr = [];
   accelerometer.start();
