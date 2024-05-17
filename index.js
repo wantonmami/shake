@@ -9,12 +9,6 @@ var accX, accY, accZ;
 var view = new DataView(new ArrayBuffer(4));
 var std;
 
-function getStandardDeviation(array) {
-  const n = array.length
-  const mean = array.reduce((a, b) => a + b) / n
-  return Math.sqrt(array.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n)
-}
-
 function getAverage(array) {
   const n = array.length
   const mean = array.reduce((a, b) => a + b) / n
@@ -26,7 +20,11 @@ accelerometer.addEventListener("reading", (e) => {
   console.log(`Acceleration along the Y-axis ${accelerometer.y}`);
   console.log(`Acceleration along the Z-axis ${accelerometer.z}`);
 
-  document.getElementById("msg").innerText = std;
+  if (accelerometer.x < 0.1 && accelerometer.y < 0.1 && accelerometer.z < 0.1) {
+    document.getElementById("msg").innerText = "Shake your phone around ";
+  }
+
+  document.getElementById("msg").innerText = "";
 
 
   document.getElementById("AccX").innerText = accelerometer.x;
@@ -42,19 +40,6 @@ accelerometer.addEventListener("reading", (e) => {
 
   arr.push((accX ^ accY ^ accZ) % 256);
   arrX.push(accelerometer.x);
-
-  if (arrX.length >= 10) {
-    std = getStandardDeviation(arr);
-
-    if (!(std > 0.7)) {
-      arr = [];
-      arrX = [];
-      document.getElementById("msg").innerText = "Shake your phone around " + std;
-      return;
-    }
-  }
-
-
 
   if (arr.length == 16) {
     document.getElementById("btn").style.backgroundColor = "green"
