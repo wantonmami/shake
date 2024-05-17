@@ -4,6 +4,7 @@ let nem = ["abandon", "ability", "able", "about", "above", "absent", "absorb", "
 const accelerometer = new Accelerometer({ frequency: 10, referenceFrame: "screen" });
 
 var arr = [];
+var arrX = [];
 var accX, accY, accZ;
 var view = new DataView(new ArrayBuffer(4));
 var std;
@@ -11,7 +12,13 @@ var std;
 function getStandardDeviation(array) {
   const n = array.length
   const mean = array.reduce((a, b) => a + b) / n
-  return Math.sqrt(array.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n)
+  return Math.sqrt(array.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n) / getAverage(arr);
+}
+
+function getAverage(array) {
+  const n = array.length
+  const mean = array.reduce((a, b) => a + b) / n
+  return mean;
 }
 
 accelerometer.addEventListener("reading", (e) => {
@@ -19,7 +26,7 @@ accelerometer.addEventListener("reading", (e) => {
   console.log(`Acceleration along the Y-axis ${accelerometer.y}`);
   console.log(`Acceleration along the Z-axis ${accelerometer.z}`);
 
-  document.getElementById("msg").innerText = std;
+  document.getElementById("msg").innerText = "";
 
 
   document.getElementById("AccX").innerText = accelerometer.x;
@@ -33,13 +40,15 @@ accelerometer.addEventListener("reading", (e) => {
   view.setFloat32(0, accelerometer.z);
   accZ = Math.abs(view.getInt32(0) % 256);
 
-  arr.push((accX ^ accY ^ accZ) % 256)
+  arr.push((accX ^ accY ^ accZ) % 256);
+  arrX(accelerometer.x);
 
-  if (arr.length >= 10) {
+  if (arrX.length >= 10) {
     std = getStandardDeviation(arr);
 
     if (std < 70) {
       arr = [];
+      arrX = [];
       document.getElementById("msg").innerText = "Shake your phone around " + std;
       return;
     }
