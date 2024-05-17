@@ -16,7 +16,7 @@ accelerometer.addEventListener("reading", (e) => {
     document.getElementById("msg").innerText = "Shake your phone around";
     return;
   }
-  document.getElementsById("msg").innerText = "";
+  document.getElementById("msg").innerText = "";
 
 
   document.getElementById("AccX").innerText = accelerometer.x;
