@@ -41,7 +41,7 @@ accelerometer.addEventListener("reading", (e) => {
   accZ = Math.abs(view.getInt32(0) % 256);
 
   arr.push((accX ^ accY ^ accZ) % 256);
-  arrX(accelerometer.x);
+  arrX.push(accelerometer.x);
 
   if (arrX.length >= 10) {
     std = getStandardDeviation(arr);
