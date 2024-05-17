@@ -48,7 +48,7 @@ accelerometer.addEventListener("reading", (e) => {
 
 
   if (arr.length == 16) {
-    document.getElementsByClassName("btn").style.backgroundColor = "green"
+    document.getElementById("btn").style.backgroundColor = "green"
     accelerometer.stop();
     processArray();
   }
@@ -56,7 +56,7 @@ accelerometer.addEventListener("reading", (e) => {
 
 
 function startAccelerometer() {
-  document.getElementsByClassName("btn").style.backgroundColor = "yellow"
+  document.getElementById("btn").style.backgroundColor = "yellow"
   arr = [];
   accelerometer.start();
 }
