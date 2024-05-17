@@ -7,29 +7,31 @@ var arr = [];
 var accX, accY, accZ;
 var view = new DataView(new ArrayBuffer(4));
 
-accelerometer.addEventListener("reading", (e) => {
-  console.log(`Acceleration along the X-axis ${accelerometer.x}`);
-  console.log(`Acceleration along the Y-axis ${accelerometer.y}`);
-  console.log(`Acceleration along the Z-axis ${accelerometer.z}`);
+setInterval(() => {
+  accelerometer.addEventListener("reading", (e) => {
+    console.log(`Acceleration along the X-axis ${accelerometer.x}`);
+    console.log(`Acceleration along the Y-axis ${accelerometer.y}`);
+    console.log(`Acceleration along the Z-axis ${accelerometer.z}`);
 
-  document.getElementById("AccX").innerText = accelerometer.x;
-  document.getElementById("AccY").innerText = accelerometer.y;
-  document.getElementById("AccZ").innerText = accelerometer.z;
+    document.getElementById("AccX").innerText = accelerometer.x;
+    document.getElementById("AccY").innerText = accelerometer.y;
+    document.getElementById("AccZ").innerText = accelerometer.z;
 
-  view.setFloat32(0, accelerometer.x);
-  accX = Math.abs(view.getInt32(0) % 256);
-  view.setFloat32(0, accelerometer.y);
-  accY = Math.abs(view.getInt32(0) % 256);
-  view.setFloat32(0, accelerometer.z);
-  accZ = Math.abs(view.getInt32(0) % 256);
+    view.setFloat32(0, accelerometer.x);
+    accX = Math.abs(view.getInt32(0) % 256);
+    view.setFloat32(0, accelerometer.y);
+    accY = Math.abs(view.getInt32(0) % 256);
+    view.setFloat32(0, accelerometer.z);
+    accZ = Math.abs(view.getInt32(0) % 256);
 
-  arr.push((accX ^ accY ^ accZ) % 256)
+    arr.push((accX ^ accY ^ accZ) % 256)
 
-  if (arr.length == 16) {
-    accelerometer.stop();
-    processArray();
-  }
-});
+    if (arr.length == 16) {
+      accelerometer.stop();
+      processArray();
+    }
+  });
+}, 100);
 
 function startAccelerometer() {
   accelerometer.start();
