@@ -38,7 +38,7 @@ accelerometer.addEventListener("reading", (e) => {
   if (arr.length >= 10) {
     std = getStandardDeviation(arr);
 
-    if (std < 60) {
+    if (std < 70) {
       arr = [];
       document.getElementById("msg").innerText = "Shake your phone around " + std;
       return;
