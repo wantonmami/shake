@@ -7,6 +7,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
+<style>
+  .btn {
+    color: #000;
+    font-size: 40px;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    background-color: yellow;
+  }
+</style>
+
 <body>
   <div class="container"
     style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100vw; height: 100vh; gap: 15px; ">
@@ -24,8 +35,7 @@
 
     </div>
     <div class=" btn_start" style="margin-top: 1rem;" onclick="startAccelerometer()">
-      <input type="button" value="Start"
-        style="color: #000; font-size: 40px; width: 10rem; height: 10rem; border-radius: 50%; background-color: green;">
+      <input class="btn" type="button" value="Start">
     </div>
 
     <div id="nem" class="" style="border: 1px solid black; width: 80vw; height: 30rem;"></div>
