@@ -6,17 +6,20 @@ const accelerometer = new Accelerometer({ frequency: 10, referenceFrame: "screen
 var arr = [];
 var accX, accY, accZ;
 var view = new DataView(new ArrayBuffer(4));
+var std;
+
+function getStandardDeviation(array) {
+  const n = array.length
+  const mean = array.reduce((a, b) => a + b) / n
+  return Math.sqrt(array.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n)
+}
 
 accelerometer.addEventListener("reading", (e) => {
   console.log(`Acceleration along the X-axis ${accelerometer.x}`);
   console.log(`Acceleration along the Y-axis ${accelerometer.y}`);
   console.log(`Acceleration along the Z-axis ${accelerometer.z}`);
 
-  if (Math.abs(accelerometer.x) < 0.5 || Math.abs(accelerometer.y) < 0.5 || Math.abs(accelerometer.z) < 0.5) {
-    document.getElementById("msg").innerText = "Shake your phone around";
-    return;
-  }
-  document.getElementById("msg").innerText = "";
+  document.getElementById("msg").innerText = std;
 
 
   document.getElementById("AccX").innerText = accelerometer.x;
@@ -31,6 +34,18 @@ accelerometer.addEventListener("reading", (e) => {
   accZ = Math.abs(view.getInt32(0) % 256);
 
   arr.push((accX ^ accY ^ accZ) % 256)
+
+  if (arr.length >= 10) {
+    std = getStandardDeviation(arr);
+
+    if (std < 4) {
+      arr = [];
+      document.getElementById("msg").innerText = "Shake your phone around " + std;
+      return;
+    }
+  }
+
+
 
   if (arr.length == 16) {
     accelerometer.stop();
