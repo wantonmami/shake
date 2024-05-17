@@ -8,7 +8,7 @@ var accX, accY, accZ;
 var view = new DataView(new ArrayBuffer(4));
 
 accelerometer.addEventListener("reading", (e) => {
-  if (accelerometer.x < 1e-5 && accelerometer.y < 1e-5 && accelerometer.z < 1e-5) {
+  if (Math.abs(accelerometer.x) < 0.2 || Math.abs(accelerometer.y) < 0.2 || Math.abs(accelerometer.z) < 0.2) {
     return;
   }
   console.log(`Acceleration along the X-axis ${accelerometer.x}`);
@@ -35,6 +35,7 @@ accelerometer.addEventListener("reading", (e) => {
 });
 
 function startAccelerometer() {
+  arr = [];
   accelerometer.start();
 }
 
