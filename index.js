@@ -56,8 +56,10 @@ async function processArray() {
 
   buffer = buffer.substr(0, 128) + buffer.substr(132, 4);
 
+  var counter = 1;
   for (var i = 0; i < 132; i += 11) {
     console.log(nem[parseInt(buffer.substr(i, 11), 2)]);
-    document.getElementById("nem").innerText += nem[parseInt(buffer.substr(i, 11), 2)] + " ";
+    document.getElementById("nem").innerHTML += counter + ".&nbsp;" + nem[parseInt(buffer.substr(i, 11), 2)] + "<br/>";
+    counter++;
   }
 }
