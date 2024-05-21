@@ -73,15 +73,15 @@ async function processArray() {
     buffer += "00000000".substring(val.toString(2).length) + val.toString(2);
   });
 
-  buffer = buffer.substring(0, 128) + buffer.substring(132, 4);
+  buffer = buffer.substring(0, 128) + buffer.substring(132, 132 + 4);
 
   let nemArr = [];
 
   var counter = 1;
   for (var i = 0; i < 132; i += 11) {
-    nemArr.push(parseInt(buffer.substring(i, 11), 2));
-    console.log(nem[parseInt(buffer.substring(i, 11), 2)]);
-    document.getElementById("nem").innerHTML += counter + ".&nbsp;" + nem[parseInt(buffer.substring(i, 11), 2)] + "<br/>";
+    nemArr.push(parseInt(buffer.substring(i, i + 11), 2));
+    console.log(nem[parseInt(buffer.substring(i, i + 11), 2)]);
+    document.getElementById("nem").innerHTML += counter + ".&nbsp;" + nem[parseInt(buffer.substring(i, i + 11), 2)] + "<br/>";
     counter++;
   }
   document.getElementById("nem-list").innerHTML += nemArr.join(",") + "<br/>";
